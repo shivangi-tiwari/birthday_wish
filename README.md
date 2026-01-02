@@ -1,3 +1,4 @@
+#happy-birthday-website
 very cute happy birthday wishes website, with a puzzle and funny bday messages.
 made with typescript and tailwind + css
 feel free to use it
