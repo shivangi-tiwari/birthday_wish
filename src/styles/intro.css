@@ -1,0 +1,167 @@
+---- BDAY INTRO PAGE ----
+.intro-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100%;
+  background: linear-gradient(135deg, #ffeef8 0%, #ffe4f1 100%);
+  padding: clamp(1rem, 3vw, 2.5rem);
+  overflow-x: hidden;
+}
+
+.intro-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(1.5rem, 4vw, 2.5rem);
+  max-width: 600px;
+  width: 100%;
+  background: rgba(255, 255, 255, 0.4);
+  backdrop-filter: blur(10px);
+  padding: clamp(1.5rem, 5vw, 3rem);
+  border-radius: 2rem;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 8px 32px rgba(201, 24, 74, 0.1);
+  animation: introFadeIn 0.6s ease-in-out;
+}
+
+.intro-text-section {
+  text-align: center;
+  width: 100%;
+}
+
+.intro-title {
+  font-size: clamp(1.75rem, 5vw, 3rem);
+  font-weight: 700;
+  color: #c9184a;
+  margin-bottom: clamp(1rem, 2vw, 1.5rem);
+  text-shadow: 0 2px 4px rgba(201, 24, 74, 0.15);
+  letter-spacing: -0.5px;
+}
+
+.intro-subtitle {
+  font-size: clamp(1rem, 2.5vw, 1.25rem);
+  color: #d63a5a;
+  font-weight: 500;
+  margin-bottom: clamp(1.5rem, 3vw, 2rem);
+  line-height: 1.5;
+}
+
+.intro-message {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(0.75rem, 1.5vw, 1rem);
+  margin-bottom: clamp(1rem, 2vw, 1.5rem);
+}
+
+.intro-paragraph {
+  font-size: clamp(0.875rem, 2vw, 1.1rem);
+  color: #c9184a;
+  font-weight: 500;
+  line-height: 1.6;
+  letter-spacing: 0.3px;
+}
+
+.intro-button {
+  background: linear-gradient(135deg, #ff69b4 0%, #ff1493 100%);
+  color: white;
+  border: none;
+  padding: clamp(0.875rem, 2.5vw, 1.25rem) clamp(1.5rem, 4vw, 2.5rem);
+  font-size: clamp(0.95rem, 2vw, 1.15rem);
+  font-weight: 600;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(255, 20, 147, 0.3);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  white-space: nowrap;
+  letter-spacing: 0.5px;
+}
+
+.intro-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(255, 20, 147, 0.4);
+}
+
+.intro-button:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 10px rgba(255, 20, 147, 0.3);
+}
+
+/* ---- DECORATIVE ICONS ---- */
+.intro-decoration {
+  display: flex;
+  gap: clamp(1rem, 3vw, 2rem);
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.intro-icon {
+  width: clamp(1.5rem, 4vw, 2.5rem);
+  height: clamp(1.5rem, 4vw, 2.5rem);
+  animation: introFloat 3s ease-in-out infinite;
+}
+
+.intro-heart-1 {
+  color: #ff1493;
+  fill: #ff1493;
+  animation-delay: 0s;
+}
+
+.intro-heart-2 {
+  color: #ff1493;
+  fill: #ff1493;
+  animation-delay: 1s;
+}
+
+.intro-heart-3 {
+  color: #ff1493;
+  fill: #ff1493;
+  animation-delay: 1.5s;
+}
+
+.intro-sparkle-1 {
+  color: #ffc0cb;
+  animation-delay: 0.5s;
+}
+
+.intro-sparkle-2 {
+  color: #ffc0cb;
+  animation-delay: 1.2s;
+}
+
+.intro-sparkle-3 {
+  color: #ffc0cb;
+  animation-delay: 1.7s;
+}
+
+.intro-decoration-top {
+  margin-bottom: clamp(0.5rem, 1vw, 1rem);
+}
+
+.intro-decoration-bottom {
+  margin-top: clamp(0.5rem, 1vw, 1rem);
+}
+
+/* ---- ANIMATIONS ---- */
+@keyframes introFadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95) translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+@keyframes introFloat {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(clamp(-8px, -1.5vw, -15px));
+  }
+}

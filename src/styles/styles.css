@@ -1,0 +1,398 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Libre Baskerville', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(135deg, #ffeef8 0%, #ffe4f1 100%);
+}
+
+/* ===== RESPONSIVE 3-COLUMN LAYOUT ===== */
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(0.75rem, 3vw, 2.5rem);
+  padding: clamp(0.75rem, 3vw, 2.5rem);
+  background: linear-gradient(135deg, #ffeef8 0%, #ffe4f1 100%);
+  min-height: 100%;
+  align-items: center;
+  justify-content: center;
+  overflow-x: hidden;
+}
+
+.puzzle-title {
+  font-size: clamp(1.75rem, 5vw, 2.5rem);
+  font-weight: 700;
+  color: #c9184a;
+  text-align: center;
+  margin-bottom: clamp(1rem, 2vw, 1.5rem);
+  text-shadow: 0 2px 4px rgba(201, 24, 74, 0.15);
+  letter-spacing: -0.5px;
+  animation: titlePulse 2s ease-in-out infinite;
+}
+
+.puzzle-instructions-top {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(0.5rem, 1vw, 0.75rem);
+  max-width: 600px;
+  margin: 0 auto clamp(1.5rem, 3vw, 2rem);
+}
+
+.puzzle-instruction-main {
+  font-size: clamp(0.95rem, 2.5vw, 1.15rem);
+  color: #c9184a;
+  font-weight: 600;
+  text-align: center;
+  line-height: 1.6;
+  letter-spacing: 0.3px;
+}
+
+.puzzle-instruction-sub {
+  font-size: clamp(0.85rem, 2vw, 1rem);
+  color: #d63a5a;
+  font-weight: 500;
+  text-align: center;
+  line-height: 1.5;
+  opacity: 0.9;
+}
+
+.puzzle-hint {
+  font-size: clamp(0.8rem, 1.8vw, 0.95rem);
+  color: #c9184a;
+  text-align: center;
+  font-weight: 500;
+  padding: clamp(0.5rem, 1.5vw, 1rem) clamp(1rem, 2vw, 1.5rem);
+  background: rgba(255, 192, 203, 0.2);
+  border-left: 3px solid #ff69b4;
+  border-radius: 0.5rem;
+  margin-top: clamp(1rem, 2vw, 1.5rem);
+  max-width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+  opacity: 0.85;
+}
+
+.instructions {
+  text-align: center;
+  color: #c9184a;
+  font-size: clamp(0.875rem, 2.5vw, 1.5rem);
+  font-weight: 500;
+  text-shadow: 0 0.125rem 0.25rem rgba(201, 24, 74, 0.1);
+  margin-bottom: clamp(0.5rem, 1.5vw, 1.25rem);
+}
+
+.columns-wrapper {
+  display: grid;
+  grid-template-columns: 1fr 1.1fr 1fr;
+  gap: clamp(0.5rem, 2vw, 2.5rem);
+  align-items: center;
+  justify-items: center;
+  width: 100%;
+  max-width: 1400px;
+}
+
+.column {
+  width: 100%;
+  min-height: clamp(8rem, 25vw, 25rem);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+
+.column.side-column {
+  background: transparent;
+  border: none;
+}
+
+.column.center-column {
+  position: relative;
+  padding: clamp(0.5rem, 2vw, 1.5rem) clamp(0.25rem, 1vw, 1rem);
+}
+
+/* ===== HEART OUTLINE & SLOTS ===== */
+.heart-outline {
+  position: absolute;
+  width: clamp(8rem, 20vw, 16.5rem);
+  height: clamp(8rem, 20vw, 16.5rem);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.heart-outline .outline-piece {
+  width: 50%;
+  height: 100%;
+  object-fit: contain;
+  opacity: 0.14;
+}
+
+.heart-outline .outline-piece.left {
+  margin-right: -4px;
+}
+
+.heart-outline .outline-piece.right {
+  margin-left: -4px;
+}
+
+.center-slots {
+  position: absolute;
+  width: clamp(8rem, 20vw, 16.5rem);
+  height: clamp(8rem, 20vw, 16.5rem);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  z-index: 8;
+  pointer-events: none;
+}
+
+.center-slot {
+  width: 50%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.center-slot.left {
+  justify-content: flex-end;
+  padding-right: 0.25rem;
+}
+
+.center-slot.right {
+  justify-content: flex-start;
+  padding-left: 0.25rem;
+}
+
+.center-slot .drag-item {
+  margin: 0;
+  pointer-events: auto;
+}
+
+.column-title {
+  color: #c9184a;
+  font-size: clamp(0.75rem, 2vw, 1.125rem);
+  font-weight: 600;
+  text-align: center;
+  letter-spacing: 0.5px;
+  margin-bottom: clamp(0.5rem, 1.5vw, 1.25rem);
+}
+
+/* ===== DRAGGABLE ITEMS ===== */
+.drag-item {
+  width: clamp(3rem, 8vw, 7.5rem);
+  height: clamp(6rem, 16vw, 15rem);
+  margin: clamp(0.5rem, 1.5vw, 1rem) auto;
+  cursor: grab;
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+  transition: transform 0.2s ease, filter 0.2s ease;
+  filter: drop-shadow(0 0.25rem 0.75rem rgba(255, 105, 180, 0.2));
+}
+
+.drag-item.dragging {
+  cursor: grabbing;
+  transform: scale(1.1) rotate(2deg);
+  filter: drop-shadow(0 0.5rem 1.25rem rgba(255, 105, 180, 0.4));
+}
+
+.drag-item-image {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: contain;
+  pointer-events: none;
+}
+
+/* ===== PAIRED ITEMS ===== */
+.paired-container {
+  display: flex;
+  gap: 0;
+  margin: clamp(0.5rem, 1.5vw, 1rem) auto;
+  width: clamp(6rem, 15vw, 15rem);
+  height: clamp(6rem, 15vw, 15rem);
+  position: relative;
+  z-index: 10;
+}
+
+.paired-container::before {
+  content: '';
+  position: absolute;
+  top: clamp(-0.5rem, -1.5vw, -1.25rem);
+  left: clamp(-0.5rem, -1.5vw, -1.25rem);
+  right: clamp(-0.5rem, -1.5vw, -1.25rem);
+  bottom: clamp(-0.5rem, -1.5vw, -1.25rem);
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 105, 180, 0.3) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.paired-piece {
+  width: clamp(3rem, 7.5vw, 7.5rem);
+  height: clamp(6rem, 15vw, 15rem);
+}
+
+/* ===== SUCCESS SCREEN ===== */
+.success-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100%;
+  background: linear-gradient(135deg, #ffeef8 0%, #ffe4f1 100%);
+  padding: clamp(0.75rem, 3vw, 2.5rem);
+}
+
+.message-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  cursor: pointer;
+  animation: fadeIn 0.8s ease-in;
+  width: 100%;
+  max-width: 600px;
+  gap: 1rem;
+}
+
+.complete-heart {
+  width: clamp(8rem, 25vw, 16rem);
+  height: clamp(8rem, 25vw, 16rem);
+  margin: 0;
+  position: relative;
+}
+
+.complete-heart::before {
+  content: '';
+  position: absolute;
+  top: clamp(-0.875rem, -2.5vw, -1.875rem);
+  left: clamp(-0.875rem, -2.5vw, -1.875rem);
+  right: clamp(-0.875rem, -2.5vw, -1.875rem);
+  bottom: clamp(-0.875rem, -2.5vw, -1.875rem);
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 105, 180, 0.5) 50%, transparent 70%);
+  animation: heartPulseLarge 1.5s ease-in-out infinite;
+  pointer-events: none;
+}
+
+.complete-heart img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  animation: imagePulse 1.5s ease-in-out infinite;
+}
+
+.message-text {
+  color: #c9184a;
+  font-size: clamp(1rem, 3vw, 2rem);
+  font-weight: 600;
+  text-shadow: 0 0.125rem 0.5rem rgba(201, 24, 74, 0.3);
+  margin: 0;
+}
+
+.message-para {
+  color: #c9184a;
+  font-size: clamp(0.75rem, 2vw, 1rem);
+  font-weight: 600;
+  text-shadow: 0 0.125rem 0.5rem rgba(201, 24, 74, 0.3);
+  margin: 0;
+}
+
+/* ===== ANIMATIONS ===== */
+@keyframes heartPulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.5;
+  }
+  50% {
+    transform: scale(1.3);
+    opacity: 0.2;
+  }
+}
+
+@keyframes heartPulseLarge {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.6;
+  }
+  50% {
+    transform: scale(1.4);
+    opacity: 0.2;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes imagePulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  14% {
+    transform: scale(1.08);
+  }
+  28% {
+    transform: scale(1);
+  }
+  42% {
+    transform: scale(1.06);
+  }
+  70% {
+    transform: scale(1);
+  }
+}
+
+@keyframes titlePulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.85;
+  }
+}
+
+/* ===== GLOW ANIMATION FOR BACKGROUND DECORATIONS ===== */
+.glow-anim {
+  will-change: filter, transform, opacity;
+  animation: glowPulse 2.6s ease-in-out infinite;
+  filter: drop-shadow(0 0 6px rgba(255,105,180,0.35));
+}
+
+@keyframes glowPulse {
+  0%, 100% {
+    filter: drop-shadow(0 0 6px rgba(255,105,180,0.35));
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+  40% {
+    filter: drop-shadow(0 0 18px rgba(255,105,180,0.8));
+    opacity: 0.95;
+    transform: translateY(-3px) scale(1.03);
+  }
+  60% {
+    filter: drop-shadow(0 0 14px rgba(255,182,193,0.65));
+    opacity: 0.98;
+    transform: translateY(-1px) scale(1.02);
+  }
+}
+
+/* No media queries needed - clamp() handles all screen sizes responsively */

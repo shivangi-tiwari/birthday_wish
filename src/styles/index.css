@@ -1,0 +1,23 @@
+@import './fonts.css';
+@import './tailwind.css';
+@import './theme.css';
+
+/* Ensure the app fills the viewport and disable scrolling */
+html, body, #root {
+	height: 100%;
+	width: 100%;
+	margin: 0;
+	overflow: hidden;
+}
+
+/* Make the mounted app fill the root and allow our JS scale/positioning */
+#root {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+#root > div {
+	width: 100%;
+	height: 100%;
+}
